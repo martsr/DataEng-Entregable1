@@ -10,4 +10,4 @@ file = pd.read_json(characters_to_json)
 DF = pd.DataFrame(file)
 DF = DF.drop(['origin', 'location', 'url', 'image',
              'episode', 'created'], axis=1)
-print(DF)
+pd.set_option('display.max_columns', None)
