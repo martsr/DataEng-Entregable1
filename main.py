@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+import os 
 from ETL.extract import DataExtractor
 from ETL.transform import DataTransformer
 from ETL.load import DataLoader
@@ -6,13 +7,12 @@ from ETL.load import DataLoader
 def fetch_redshift_credentials():
     load_dotenv()
     config = {
-        'host': 'data-engineer-cluster.cyhh5bfevlmn.us-east-1.redshift.amazonaws.com',
-        'port':5439,
-        'database': 'data-engineer-database',
-        'user': 'martinarivero_coderhouse',
-        'password': 'PaI5n2Kk0Q'
+        'host': os.getenv("HOST"),
+        'port': os.getenv("PORT"),
+        'database': os.getenv("DATABASE"),
+        'user': os.getenv("USER"),
+        'password': os.getenv("PASSWORD")
         }
-    print(config)
     return config
 
 

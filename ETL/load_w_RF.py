@@ -29,16 +29,15 @@ class DataLoader:
 
     def load_data_from_dataframe(self, df, table_name, delimiter=','):
         try:
-            # Create a CSV in-memory buffer
-            # csv_buffer = StringIO()
-            # df.to_csv(csv_buffer, sep=delimiter, index=False, header=False)
-            # csv_buffer.seek(0)
-            csv_data=df.to_csv(index=False, header=False)
-            csv_data_io = StringIO(csv_data)
-            # Execute the COPY command to load data from the buffer
+            
+            csv_buffer = StringIO()
+            df.to_csv(csv_buffer, sep=delimiter, index=False, header=False)
+            csv_buffer.seek(0)
+            
+
             cursor = self.connection.cursor()
             copy_command = f"COPY {table_name} FROM stdin CSV DELIMITER '{delimiter}' "
-            cursor.copy_expert(sql=copy_command, file=csv_data_io)
+            cursor.copy_expert(sql=copy_command, file=csv_buffer)
             cursor.close()
             print(f"Data loaded into {table_name}")
         except Exception as e:
