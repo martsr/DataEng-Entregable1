@@ -1,6 +1,5 @@
 import psycopg2
 from io import StringIO
-from sqlalchemy import create_engine
 
 
 class DataLoader:
